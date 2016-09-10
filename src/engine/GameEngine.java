@@ -64,7 +64,9 @@ public class GameEngine implements Runnable {
 
             render();
 
-            sync();
+            if (!window.isvSync()) {
+                sync();
+            }
         }
     }
 
