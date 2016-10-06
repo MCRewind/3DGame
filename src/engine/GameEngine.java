@@ -21,7 +21,12 @@ public class GameEngine implements Runnable {
     }
 
     public void start() {
-    	gameLoopThread.start();
+        String osName = System.getProperty("os.name");
+        if ( osName.contains("Mac") ) {
+            gameLoopThread.run();
+        } else {
+            gameLoopThread.start();
+        }
     }
 
     @Override
@@ -31,6 +36,8 @@ public class GameEngine implements Runnable {
             gameLoop();
         } catch (Exception excp) {
             excp.printStackTrace();
+        } finally {
+            cleanup();
         }
     }
 
@@ -59,12 +66,16 @@ public class GameEngine implements Runnable {
 
             render();
 
-            if (!window.isvSync()) {
+            if ( !window.isvSync() ) {
                 sync();
             }
         }
     }
 
+    protected void cleanup() {
+        gameLogic.cleanup();                
+    }
+    
     private void sync() {
         float loopSlot = 1f / TARGET_FPS;
         double endTime = timer.getLastLoopTime() + loopSlot;
