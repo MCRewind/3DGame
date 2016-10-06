@@ -1,4 +1,5 @@
 package engine;
+
 public class GameEngine implements Runnable {
 
     public static final int TARGET_FPS = 75;
@@ -73,9 +74,9 @@ public class GameEngine implements Runnable {
     }
 
     protected void cleanup() {
-        gameLogic.cleanup();                
+        gameLogic.cleanup();
     }
-    
+
     private void sync() {
         float loopSlot = 1f / TARGET_FPS;
         double endTime = timer.getLastLoopTime() + loopSlot;
