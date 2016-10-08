@@ -12,14 +12,20 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
 
+	//window title
     private final String title;
 
+    //window width
     private int width;
 
+    //window height
     private int height;
 
+    //window handle/window id
     private long windowHandle;
 
+    //error callbacks
+    
     private GLFWErrorCallback errorCallback;
 
     private GLFWKeyCallback keyCallback;
@@ -30,6 +36,7 @@ public class Window {
 
     private boolean vSync;
 
+    //initializes the window variables based on passed in values
     public Window(String title, int width, int height, boolean vSync) {
         this.title = title;
         this.width = width;
@@ -108,6 +115,10 @@ public class Window {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     }
 
+    /*
+     * All below methods are self explanatory
+     */
+    
     public void setClearColor(float r, float g, float b, float alpha) {
         glClearColor(r, g, b, alpha);
     }
@@ -147,7 +158,8 @@ public class Window {
     public void setvSync(boolean vSync) {
         this.vSync = vSync;
     }
-
+    
+    //swaps the front and back buffers of the specified window then processes pending events
     public void update() {
         glfwSwapBuffers(windowHandle);
         glfwPollEvents();

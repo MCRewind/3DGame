@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Utils {
 
+	//finds specific resources through the classpath and returns them as a string
 	@SuppressWarnings("resource")
 	public static String loadResource(String fileName) throws Exception {
         String result = "";

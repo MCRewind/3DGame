@@ -2,7 +2,9 @@ package engine;
 
 public interface IGameLogic {
 
-	void init() throws Exception;
+	//game logic method interface, self explanatory
+	
+	void init(Window window) throws Exception;
 	
 	void input(Window window);
 	

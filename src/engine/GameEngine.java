@@ -2,8 +2,10 @@ package engine;
 
 public class GameEngine implements Runnable {
 
+	//target frames per second
     public static final int TARGET_FPS = 75;
 
+    //target updates per second
     public static final int TARGET_UPS = 30;
 
     private final Window window;
@@ -14,6 +16,7 @@ public class GameEngine implements Runnable {
 
     private final IGameLogic gameLogic;
 
+    //initializes the gameloop thread, the window, the gamelogic, and the timer.
     public GameEngine(String windowTitle, int width, int height, boolean vSync, IGameLogic gameLogic) throws Exception {
         gameLoopThread = new Thread(this, "GAME_LOOP_THREAD");
         window = new Window(windowTitle, width, height, vSync);
@@ -21,6 +24,7 @@ public class GameEngine implements Runnable {
         timer = new Timer();
     }
 
+    //starts the gameloop's thread
     public void start() {
         String osName = System.getProperty("os.name");
         if ( osName.contains("Mac") ) {
@@ -30,6 +34,7 @@ public class GameEngine implements Runnable {
         }
     }
 
+    //does initializations then starts the gameloop, calls cleanup on exit
     @Override
     public void run() {
         try {
@@ -42,12 +47,14 @@ public class GameEngine implements Runnable {
         }
     }
 
+    //calls the window and timer's init methods and passes the game's init method the main window
     protected void init() throws Exception {
         window.init();
         timer.init();
-        gameLogic.init();
+        gameLogic.init(window);
     }
 
+    //fixed step gameloop with fps limiting and vsync
     protected void gameLoop() {
         float elapsedTime;
         float accumulator = 0f;
@@ -66,17 +73,19 @@ public class GameEngine implements Runnable {
             }
 
             render();
-
+            
             if ( !window.isvSync() ) {
                 sync();
             }
         }
     }
 
+    //calls the game's cleanup method
     protected void cleanup() {
         gameLogic.cleanup();
     }
 
+    //vsync method, sleeps thread till current frame has completed
     private void sync() {
         float loopSlot = 1f / TARGET_FPS;
         double endTime = timer.getLastLoopTime() + loopSlot;
@@ -88,14 +97,17 @@ public class GameEngine implements Runnable {
         }
     }
 
+    //passes the main window to the game's input method
     protected void input() {
         gameLogic.input(window);
     }
 
+    //passes the game's update method an interval
     protected void update(float interval) {
         gameLogic.update(interval);
     }
 
+    //passes the game's render method the main window then updates the window
     protected void render() {
         gameLogic.render(window);
         window.update();

@@ -22,14 +22,14 @@ public class DummyGame implements IGameLogic {
     }
 
     @Override
-    public void init() throws Exception {
-        renderer.init();
+    public void init(Window window) throws Exception {
+        renderer.init(window);
         //Gradient Square
         float[] positions = new float[]{
-        		-0.5f, 0.5f, 0.0f,
-            	-0.5f, -0.5f, 0.0f,
-            	0.5f, -0.5f, 0.0f,
-            	0.5f, 0.5f, 0.0f,
+        		-0.5f, 0.5f, -1.05f,
+            	-0.5f, -0.5f, -1.05f,
+            	0.5f, -0.5f, -1.05f,
+            	0.5f, 0.5f, -1.05f,
             };
         int[] indices = new int[]{
         		0, 1, 3, 3, 1, 2,
