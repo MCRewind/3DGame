@@ -16,10 +16,12 @@ public class Mesh {
     private final int posVboId;
 
     private final int idxVboId;
+    
+    private final int colorVboId;
 
     private final int vertexCount;
 
-    public Mesh(float[] positions, int[] indices) {
+    public Mesh(float[] positions, float[] colors, int[] indices) {
         vertexCount = indices.length;
 
         vaoId = glGenVertexArrays();
@@ -33,6 +35,13 @@ public class Mesh {
         glBufferData(GL_ARRAY_BUFFER, posBuffer, GL_STATIC_DRAW);
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
 
+        colorVboId = glGenBuffers();
+        FloatBuffer colorBuffer = BufferUtils.createFloatBuffer(colors.length);
+        colorBuffer.put(colors).flip();
+        glBindBuffer(GL_ARRAY_BUFFER, colorVboId);
+        glBufferData(GL_ARRAY_BUFFER, colorBuffer, GL_STATIC_DRAW);
+        glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, 0);
+        
         // Index VBO
         idxVboId = glGenBuffers();
         IntBuffer indicesBuffer = BufferUtils.createIntBuffer(indices.length);
@@ -59,6 +68,7 @@ public class Mesh {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glDeleteBuffers(posVboId);
         glDeleteBuffers(idxVboId);
+        glDeleteBuffers(colorVboId);
 
         // Delete the VAO
         glBindVertexArray(0);
