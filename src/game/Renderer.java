@@ -13,10 +13,12 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 import org.joml.Matrix4f;
 
+import engine.GameItem;
 import engine.Utils;
 import engine.Window;
 import engine.graph.Mesh;
 import engine.graph.ShaderProgram;
+import engine.graph.Transformation;
 
 public class Renderer {
 
@@ -35,10 +37,10 @@ public class Renderer {
     //render distance max
     private static final float Z_FAR = 1000.0f;
     
-    //projection matrix
-    private Matrix4f projectionMatrix;
+    private Transformation transformation;
     
     public Renderer() {
+    	transformation = new Transformation();
     }
 
     //initializes shaders and links them to the program
@@ -49,12 +51,12 @@ public class Renderer {
         shaderProgram.createFragmentShader(Utils.loadResource("/res/fragment.fs"));
         shaderProgram.link();
         
-        //creates the projection matrix
-        float aspectRatio = (float) window.getWidth() / window.getHeight();
-        projectionMatrix = new Matrix4f().perspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
-        
-        //creates a uniform variable for the projection matrix
+        //creates a uniform variable for the projection and world matrices
         shaderProgram.createUniform("projectionMatrix");
+        shaderProgram.createUniform("worldMatrix");
+        
+        //set clear color
+        window.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     }
 
     //clears the window
@@ -63,7 +65,7 @@ public class Renderer {
     }
 
     //deals with window resizing, binds the shaderProgram, and draws the mesh then unbinds the shaderProgram
-    public void render(Window window, Mesh mesh) {
+    public void render(Window window, GameItem[] gameItems) {
         clear();
 
         if (window.isResized()) {
@@ -74,19 +76,24 @@ public class Renderer {
         //binds the shader program
         shaderProgram.bind();
         
+        //update projection matrix
+        Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV, window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
         //sets the projection matrix uniform variable to the value of the actual projection matrix
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
-        // Draw the mesh
-        glBindVertexArray(mesh.getVaoId());
-        glEnableVertexAttribArray(0);
-        glEnableVertexAttribArray(1);
-        glDrawElements(GL_TRIANGLES, mesh.getVertexCount(), GL_UNSIGNED_INT, 0);
-
-        // Restore state
-        glDisableVertexAttribArray(0);
-        glBindVertexArray(0);
-
+        //render each gameItem
+        for(GameItem gameItem : gameItems){
+        	//set the world matrix for this item
+        	Matrix4f worldMatrix = 
+        		transformation.getWorldMatrix(
+        				gameItem.getPosition(),
+        				gameItem.getRotation(), 
+        				gameItem.getScale());
+        	shaderProgram.setUniform("worldMatrix", worldMatrix);
+        	//render the mesh for this gameItem
+        	gameItem.getMesh().render();
+        }
+        
         shaderProgram.unbind();
     }
 

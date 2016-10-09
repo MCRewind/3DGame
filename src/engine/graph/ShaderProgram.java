@@ -72,6 +72,10 @@ public class ShaderProgram {
     	uniforms.put(uniformName, uniformLocation);
     }
     
+    /*
+    *uniform variables are used to efficiently pass data to and from the CPU and GPU
+    */
+    
     //set a specific uniform value
     public void setUniform(String uniformName, Matrix4f value){
     	//dump the matrix into the float buffer

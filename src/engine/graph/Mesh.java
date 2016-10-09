@@ -71,15 +71,30 @@ public class Mesh {
         return vertexCount;
     }
 
-    //deleted VBOs and VAO
+    //renders a mesh
+    public void render(){
+    	//draw the mesh
+    	glBindVertexArray(getVaoId());
+    	glEnableVertexAttribArray(0);
+    	glEnableVertexAttribArray(1);
+    	
+    	glDrawElements(GL_TRIANGLES, getVertexCount(), GL_UNSIGNED_INT,  0);
+    	
+    	//restore state
+    	glDisableVertexAttribArray(0);
+    	glDisableVertexAttribArray(1);
+    	glBindVertexArray(0);
+    }
+    
+    //delete VBOs and VAO
     public void cleanUp() {
-        glDisableVertexAttribArray(0);
+    	glDisableVertexAttribArray(0);
 
         // Delete the VBOs
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glDeleteBuffers(posVboId);
-        glDeleteBuffers(idxVboId);
+    	glBindBuffer(GL_ARRAY_BUFFER, 0);
+    	glDeleteBuffers(posVboId);
         glDeleteBuffers(colorVboId);
+        glDeleteBuffers(idxVboId);
 
         // Delete the VAO
         glBindVertexArray(0);
