@@ -29,21 +29,49 @@ public class DummyGame implements IGameLogic {
     public void init(Window window) throws Exception {
         renderer.init(window);
         // Create the Mesh
-        float[] positions = new float[]{
-            -0.5f,  0.5f,  0.5f,
-            -0.5f, -0.5f,  0.5f,
-             0.5f, -0.5f,  0.5f,
-             0.5f,  0.5f,  0.5f,
+        float[] positions = new float[] {
+       	    // V0
+       	    -0.5f,  0.5f,  0.5f,
+       	    // V1
+       	    -0.5f, -0.5f,  0.5f,
+       	    // V2
+       	    0.5f, -0.5f,  0.5f,
+       	    // V3
+       	     0.5f,  0.5f,  0.5f,
+       	    // V4
+       	    -0.5f,  0.5f, -0.5f,
+       	    // V5
+       	     0.5f,  0.5f, -0.5f,
+       	    // V6
+      	    -0.5f, -0.5f, -0.5f,
+        	// V7
+        	0.5f, -0.5f, -0.5f,
         };
         float[] colors = new float[]{
-            0.5f, 0.0f, 0.0f,
-            0.0f, 0.5f, 0.0f,
-            0.0f, 0.0f, 0.5f,
-            0.0f, 0.5f, 0.5f,
+       	    0.5f, 0.0f, 0.0f,
+       	    0.0f, 0.5f, 0.0f,
+       	    0.0f, 0.0f, 0.5f,
+       	    0.0f, 0.5f, 0.5f,
+       	    0.5f, 0.0f, 0.0f,
+       	    0.0f, 0.5f, 0.0f,
+       	    0.0f, 0.0f, 0.5f,
+       	    0.0f, 0.5f, 0.5f,
         };
-        int[] indices = new int[]{
-            0, 1, 3, 3, 1, 2,
-        };
+        //defined in counter clockwise order
+        int[] indices = new int[] {
+       	    // Front face
+       	    0, 1, 3, 3, 1, 2,
+       	    // Top Face
+       	    4, 0, 3, 5, 4, 3,
+       	    // Right face
+       	    3, 2, 7, 5, 3, 7,
+       	    // Left face
+       	    0, 1, 6, 4, 0, 6,
+       	    // Bottom face
+       	    6, 1, 2, 7, 6, 2,
+       	    // Back face
+       	    4, 6, 7, 5, 4, 7,
+       	};
         Mesh mesh = new Mesh(positions, colors, indices);
         GameItem gameItem = new GameItem(mesh);
         gameItem.setPosition(0, 0, -2);
@@ -93,12 +121,12 @@ public class DummyGame implements IGameLogic {
             }
             gameItem.setScale(scale);
             
-            // Update rotation angle
-            float rotation = gameItem.getRotation().z + 1.5f;
+         // Update rotation angle
+            float rotation = gameItem.getRotation().x + 1.5f;
             if ( rotation > 360 ) {
                 rotation = 0;
             }
-            gameItem.setRotation(0, 0, rotation);            
+            gameItem.setRotation(rotation, rotation, rotation);     
         }
     }
 
