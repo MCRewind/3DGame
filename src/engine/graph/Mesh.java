@@ -23,7 +23,7 @@ public class Mesh {
     private final int vertexCount;
 
     //creates the VBOs and the VAO
-    public Mesh(float[] positions, float[] colors, int[] indices) {
+    public Mesh(float[] positions, float[] textCoords, int[] indices, Texture texture) {
         vertexCount = indices.length;
         vboIdList = new ArrayList();
 
@@ -40,14 +40,14 @@ public class Mesh {
         glBufferData(GL_ARRAY_BUFFER, posBuffer, GL_STATIC_DRAW);
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
 
-        //color VBO
+        //texture VBO
         vboId = glGenBuffers();
         vboIdList.add(vboId);
-        FloatBuffer colorBuffer = BufferUtils.createFloatBuffer(colors.length);
-        colorBuffer.put(colors).flip();
+        FloatBuffer textCoordsBuffer = BufferUtils.createFloatBuffer(textCoords.length);
+        textCoordsBuffer.put(textCoords).flip();
         glBindBuffer(GL_ARRAY_BUFFER, vboId);
-        glBufferData(GL_ARRAY_BUFFER, colorBuffer, GL_STATIC_DRAW);
-        glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, 0);
+        glBufferData(GL_ARRAY_BUFFER, textCoordsBuffer, GL_STATIC_DRAW);
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
         
         //index VBO
         vboId = glGenBuffers();

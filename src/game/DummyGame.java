@@ -48,7 +48,7 @@ public class DummyGame implements IGameLogic {
         	0.5f, -0.5f, -0.5f,
         };
         float[] colors = new float[]{
-       	    0.5f, 0.0f, 0.0f,
+       	    0.5f, 0.0f, 0.0f, 
        	    0.0f, 0.5f, 0.0f,
        	    0.0f, 0.0f, 0.5f,
        	    0.0f, 0.5f, 0.5f,

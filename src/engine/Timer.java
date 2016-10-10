@@ -10,7 +10,7 @@ public class Timer {
 
     //returns the time
     public double getTime() {
-        return System.nanoTime() / 1000_000_000.0;
+        return System.nanoTime() / 1_000_000_000.0;
     }
 
     //returns the difference between the last time check and the current time
