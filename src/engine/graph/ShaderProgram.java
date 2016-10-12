@@ -1,33 +1,11 @@
 package engine.graph;
 
-import static org.lwjgl.opengl.GL20.GL_COMPILE_STATUS;
-import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
-import static org.lwjgl.opengl.GL20.GL_LINK_STATUS;
-import static org.lwjgl.opengl.GL20.GL_VALIDATE_STATUS;
-import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
-import static org.lwjgl.opengl.GL20.glAttachShader;
-import static org.lwjgl.opengl.GL20.glCompileShader;
-import static org.lwjgl.opengl.GL20.glCreateProgram;
-import static org.lwjgl.opengl.GL20.glCreateShader;
-import static org.lwjgl.opengl.GL20.glDeleteProgram;
-import static org.lwjgl.opengl.GL20.glDetachShader;
-import static org.lwjgl.opengl.GL20.glGetProgramInfoLog;
-import static org.lwjgl.opengl.GL20.glGetProgrami;
-import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
-import static org.lwjgl.opengl.GL20.glGetShaderi;
-import static org.lwjgl.opengl.GL20.glGetUniformLocation;
-import static org.lwjgl.opengl.GL20.glLinkProgram;
-import static org.lwjgl.opengl.GL20.glShaderSource;
-import static org.lwjgl.opengl.GL20.glUseProgram;
-import static org.lwjgl.opengl.GL20.glValidateProgram;
-import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
-
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
+import static org.lwjgl.opengl.GL20.*;
 
 public class ShaderProgram {
 
@@ -83,6 +61,10 @@ public class ShaderProgram {
     	FloatBuffer fb = BufferUtils.createFloatBuffer(16);
     	value.get(fb);
     	glUniformMatrix4fv(uniforms.get(uniformName), false, fb);
+    }
+    
+    public void setUniform(String uniformName, int value) {
+        glUniform1i(uniforms.get(uniformName), value);
     }
     
     //compiles a shader, attaches it to a program, then returns the shaderId

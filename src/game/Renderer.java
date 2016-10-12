@@ -47,13 +47,14 @@ public class Renderer {
     //adds uniform variables to a lookup hashmap
     public void init(Window window) throws Exception {
         shaderProgram = new ShaderProgram();
-        shaderProgram.createVertexShader(Utils.loadResource("/res/vertex.vs"));
-        shaderProgram.createFragmentShader(Utils.loadResource("/res/fragment.fs"));
+        shaderProgram.createVertexShader(Utils.loadResource("/res/shaders/vertex.vs"));
+        shaderProgram.createFragmentShader(Utils.loadResource("/res/shaders/fragment.fs"));
         shaderProgram.link();
         
-        //creates a uniform variable for the projection and world matrices
+        // Create uniforms for modelView and projection matrices and texture
         shaderProgram.createUniform("projectionMatrix");
-        shaderProgram.createUniform("worldMatrix");
+        shaderProgram.createUniform("modelViewMatrix");
+        shaderProgram.createUniform("texture_sampler");
         
         //set clear color
         window.setClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -81,19 +82,19 @@ public class Renderer {
         //sets the projection matrix uniform variable to the value of the actual projection matrix
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
-        //render each gameItem
-        for(GameItem gameItem : gameItems){
-        	//set the world matrix for this item
-        	Matrix4f worldMatrix = 
-        		transformation.getWorldMatrix(
-        				gameItem.getPosition(),
-        				gameItem.getRotation(), 
-        				gameItem.getScale());
-        	shaderProgram.setUniform("worldMatrix", worldMatrix);
-        	//render the mesh for this gameItem
-        	gameItem.getMesh().render();
-        }
+     // Update view Matrix
+        Matrix4f viewMatrix = transformation.getViewMatrix(camera);
         
+        shaderProgram.setUniform("texture_sampler", 0);
+        // Render each gameItem
+        for(GameItem gameItem : gameItems) {
+            // Set model view matrix for this item
+            Matrix4f modelViewMatrix = transformation.getModelViewMatrix(gameItem, viewMatrix);
+            shaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
+            // Render the mes for this game item
+            gameItem.getMesh().render();
+        }
+
         shaderProgram.unbind();
     }
 

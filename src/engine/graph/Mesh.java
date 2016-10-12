@@ -4,9 +4,9 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
@@ -21,9 +21,12 @@ public class Mesh {
 
     //number of vertices in the mesh
     private final int vertexCount;
+    
+    private final Texture texture;
 
     //creates the VBOs and the VAO
     public Mesh(float[] positions, float[] textCoords, int[] indices, Texture texture) {
+    	this.texture = texture;
         vertexCount = indices.length;
         vboIdList = new ArrayList();
 
@@ -73,6 +76,11 @@ public class Mesh {
 
     //renders a mesh
     public void render(){
+    	// Activate firsT texture bank
+        glActiveTexture(GL_TEXTURE0);
+        // Bind the texture
+        
+        glBindTexture(GL_TEXTURE_2D, texture.getId());
         // Draw the mesh
         glBindVertexArray(getVaoId());
         glEnableVertexAttribArray(0);
