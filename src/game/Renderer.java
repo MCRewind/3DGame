@@ -82,7 +82,7 @@ public class Renderer {
         //sets the projection matrix uniform variable to the value of the actual projection matrix
         shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
-     // Update view Matrix
+        // Update view Matrix
         Matrix4f viewMatrix = transformation.getViewMatrix(camera);
         
         shaderProgram.setUniform("texture_sampler", 0);
