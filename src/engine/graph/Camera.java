@@ -27,7 +27,7 @@ public class Camera {
 		position.y = y;
 		position.z = z;
 	}
-	// increase the camera position by an offset. Taking into consideration the the yaw.
+	// increase the camera position by an offset. Taking into consideration the the y-axis rotation.
 	public void movePosition(float offsetX, float offsetY, float offsetZ){
 		if (offsetZ != 0){
 			position.x += (float)Math.sin(Math.toRadians(rotation.y)) * -1.0f * offsetX;

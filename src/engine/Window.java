@@ -23,8 +23,8 @@ public class Window {
     private long windowHandle;
 
     //error callbacks
-    
-    private GLFWErrorCallback errorCallback;
+
+	private GLFWErrorCallback errorCallback;
 
     private GLFWKeyCallback keyCallback;
 
@@ -118,6 +118,14 @@ public class Window {
     /*
      * All below methods are self explanatory
      */
+    
+    public long getWindowHandle() {
+		return windowHandle;
+	}
+
+	public void setWindowHandle(long windowHandle) {
+		this.windowHandle = windowHandle;
+	}
     
     public void setClearColor(float r, float g, float b, float alpha) {
         glClearColor(r, g, b, alpha);
