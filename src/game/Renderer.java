@@ -16,6 +16,7 @@ import org.joml.Matrix4f;
 import engine.GameItem;
 import engine.Utils;
 import engine.Window;
+import engine.graph.Camera;
 import engine.graph.Mesh;
 import engine.graph.ShaderProgram;
 import engine.graph.Transformation;
@@ -66,7 +67,7 @@ public class Renderer {
     }
 
     //deals with window resizing, binds the shaderProgram, and draws the mesh then unbinds the shaderProgram
-    public void render(Window window, GameItem[] gameItems) {
+    public void render(Window window, GameItem[] gameItems, Camera camera) {
         clear();
 
         if (window.isResized()) {

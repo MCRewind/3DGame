@@ -1,5 +1,7 @@
 package engine;
 
+import engine.graph.Camera;
+
 public interface IGameLogic {
 
 	//game logic method interface, self explanatory
@@ -10,7 +12,7 @@ public interface IGameLogic {
 	
 	void update(float interval);
 	
-	void render(Window window);
+	void render(Window window, Camera camera);
 	
 	void cleanup();
 	

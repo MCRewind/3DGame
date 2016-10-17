@@ -5,6 +5,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import engine.GameItem;
 import engine.IGameLogic;
 import engine.Window;
+import engine.graph.Camera;
 import engine.graph.Mesh;
 import engine.graph.Texture;
 
@@ -20,6 +21,8 @@ public class DummyGame implements IGameLogic {
 
     private final Renderer renderer;
 
+    private final Camera camera; 
+    
     private GameItem[] gameItems;
 
     public DummyGame() {
@@ -183,8 +186,8 @@ public class DummyGame implements IGameLogic {
     }
 
     @Override
-    public void render(Window window) {
-        renderer.render(window, gameItems);
+    public void render(Window window,) {
+        renderer.render(window, gameItems, camera);
     }
 
     @Override
