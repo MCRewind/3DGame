@@ -21,7 +21,7 @@ public class Timer {
         return elapsedTime;
     }
 
-    //returns the last loop time
+    //returns the last loop time 
     public double getLastLoopTime() {
         return lastLoopTime;
     }
