@@ -15,6 +15,8 @@ public class GameEngine implements Runnable {
     private final Timer timer;
 
     private final IGameLogic gameLogic;
+    
+    private final MouseInput mouseInput;
 
     //initializes the gameloop thread, the window, the gamelogic, and the timer.
     public GameEngine(String windowTitle, int width, int height, boolean vSync, IGameLogic gameLogic) throws Exception {
@@ -22,6 +24,7 @@ public class GameEngine implements Runnable {
         window = new Window(windowTitle, width, height, vSync);
         this.gameLogic = gameLogic;
         timer = new Timer();
+        mouseInput = new MouseInput();
     }
 
     //starts the gameloop's thread
@@ -99,12 +102,13 @@ public class GameEngine implements Runnable {
 
     //passes the main window to the game's input method
     protected void input() {
-        gameLogic.input(window);
+    	 mouseInput.input(window);
+    	 gameLogic.input(window, mouseInput);
     }
 
     //passes the game's update method an interval
     protected void update(float interval) {
-        gameLogic.update(interval);
+        gameLogic.update(interval, mouseInput);
     }
 
     //passes the game's render method the main window then updates the window
