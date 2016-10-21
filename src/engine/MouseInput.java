@@ -64,25 +64,25 @@ public class MouseInput {
         return displVec;
     }
     
-    public void input(Window window){
-    	displVec.x = 0;
-    	displVec.y = 0;
-    	if(previousPos.x > 0 && previousPos.y > 0 && inWindow){
-    		double deltax = currentPos.x - previousPos.x;
-    		double deltay = currentPos.y - previousPos.y;
-    		boolean rotateX = deltax != 0;
-    		boolean rotateY = deltay != 0;
-    		if(rotateX){
-    			displVec.y = (float) deltax;
-    		}
-    		if(rotateY){
-    			displVec.x = (float) deltay;
-    		}
-    	}
-    	previousPos.x = currentPos.x;
-    	previousPos.y = currentPos.y;
+    public void input(Window window) {
+        displVec.x = 0;
+        displVec.y = 0;
+        if (previousPos.x > 0 && previousPos.y > 0 && inWindow) {
+            double deltax = currentPos.x - previousPos.x;
+            double deltay = currentPos.y - previousPos.y;
+            boolean rotateX = deltax != 0;
+            boolean rotateY = deltay != 0;
+            if (rotateX) {
+                displVec.y = (float) deltax;
+            }
+            if (rotateY) {
+                displVec.x = (float) deltay;
+            }
+        }
+        previousPos.x = currentPos.x;
+        previousPos.y = currentPos.y;
     }
-    
+
     public boolean isLeftButtonPressed() {
         return leftButtonPressed;
     }
