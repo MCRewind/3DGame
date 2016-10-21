@@ -13,7 +13,7 @@ import engine.graph.Texture;
 
 public class DummyGame implements IGameLogic {
 
-    private static final float MOUSE_SENSITIVITY = 0.2f;
+    private static final float MOUSE_SENSITIVITY = 0.4f;
 
     private final Vector3f cameraInc;
 
