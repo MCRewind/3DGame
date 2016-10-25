@@ -119,39 +119,124 @@ public class DummyGame implements IGameLogic {
             // Back face
             4, 6, 7, 5, 4, 7,};
         Texture texture = new Texture("/res/textures/grassblock.png");
-        Mesh mesh = new Mesh(positions, textCoords, indices, texture);
+        Mesh mesh2 = new Mesh(positions, textCoords, indices, texture);
+        
+        Texture texture2 = new Texture("/res/textures/circlebrick.png");
+        Mesh mesh = new Mesh(positions, textCoords, indices, texture2);
+        
+        GameItem gameItem0 = new GameItem(mesh);
+        gameItem0.setScale(0.5f);
+        gameItem0.setPosition(-.5f, -.5f, 0);
+        GameItem gameItemA = new GameItem(mesh);
+        gameItemA.setScale(0.5f);
+        gameItemA.setPosition(-.5f, -.5f, 2);
+        GameItem gameItemB = new GameItem(mesh);
+        gameItemB.setScale(0.5f);
+        gameItemB.setPosition(2.5f, -.5f, 2);
+        GameItem gameItemC = new GameItem(mesh);
+        gameItemC.setScale(0.5f);
+        gameItemC.setPosition(2.5f, -.5f, 0);
+        
         GameItem gameItem1 = new GameItem(mesh);
         gameItem1.setScale(0.5f);
-        gameItem1.setPosition(0, 0, -2);
+        gameItem1.setPosition(0, 0, 0);
         GameItem gameItem2 = new GameItem(mesh);
         gameItem2.setScale(0.5f);
-        gameItem2.setPosition(0.5f, 0.5f, -2);
+        gameItem2.setPosition(0.5f, 0.5f, 0);
         GameItem gameItem3 = new GameItem(mesh);
         gameItem3.setScale(0.5f);
-        gameItem3.setPosition(0, 0, -2.5f);
+        gameItem3.setPosition(1, 1, 0);
         GameItem gameItem4 = new GameItem(mesh);
         gameItem4.setScale(0.5f);
-        gameItem4.setPosition(0.5f, 0, -2.5f);
-        gameItems = new GameItem[]{gameItem1, gameItem2, gameItem3, gameItem4};
+        gameItem4.setPosition(1.5f, .5f, 0);
+        GameItem gameItem5 = new GameItem(mesh);
+        gameItem5.setScale(0.5f);
+        gameItem5.setPosition(2f, 0f, 0);
+        
+        GameItem gameItem11 = new GameItem(mesh2);
+        gameItem11.setScale(0.5f);
+        gameItem11.setPosition(0, -.5f, .5f);
+        GameItem gameItem12 = new GameItem(mesh2);
+        gameItem12.setScale(0.5f);
+        gameItem12.setPosition(0.5f, 0f, .5f);
+        GameItem gameItem13 = new GameItem(mesh2);
+        gameItem13.setScale(0.5f);
+        gameItem13.setPosition(1, .5f, .5f);
+        GameItem gameItem14 = new GameItem(mesh2);
+        gameItem14.setScale(0.5f);
+        gameItem14.setPosition(1.5f, 0f, .5f);
+        GameItem gameItem15 = new GameItem(mesh2);
+        gameItem15.setScale(0.5f);
+        gameItem15.setPosition(2f, -.5f, .5f);
+        
+        GameItem gameItem16 = new GameItem(mesh2);
+        gameItem16.setScale(0.5f);
+        gameItem16.setPosition(0, -.5f, 1f);
+        GameItem gameItem17 = new GameItem(mesh2);
+        gameItem17.setScale(0.5f);
+        gameItem17.setPosition(0.5f, 0f, 1f);
+        GameItem gameItem18 = new GameItem(mesh2);
+        gameItem18.setScale(0.5f);
+        gameItem18.setPosition(1, .5f, 1f);
+        GameItem gameItem19 = new GameItem(mesh2);
+        gameItem19.setScale(0.5f);
+        gameItem19.setPosition(1.5f, 0f, 1f);
+        GameItem gameItem20 = new GameItem(mesh2);
+        gameItem20.setScale(0.5f);
+        gameItem20.setPosition(2f, -.5f, 1f);
+        
+        GameItem gameItem21 = new GameItem(mesh2);
+        gameItem21.setScale(0.5f);
+        gameItem21.setPosition(0, -.5f, 1.5f);
+        GameItem gameItem22 = new GameItem(mesh2);
+        gameItem22.setScale(0.5f);
+        gameItem22.setPosition(0.5f, 0f, 1.5f);
+        GameItem gameItem23 = new GameItem(mesh2);
+        gameItem23.setScale(0.5f);
+        gameItem23.setPosition(1, .5f, 1.5f);
+        GameItem gameItem24 = new GameItem(mesh2);
+        gameItem24.setScale(0.5f);
+        gameItem24.setPosition(1.5f, 0f, 1.5f);
+        GameItem gameItem25 = new GameItem(mesh2);
+        gameItem25.setScale(0.5f);
+        gameItem25.setPosition(2f, -.5f, 1.5f);
+
+
+        GameItem gameItem6 = new GameItem(mesh);
+        gameItem6.setScale(0.5f);
+        gameItem6.setPosition(0, 0, 2f);
+        GameItem gameItem7 = new GameItem(mesh);
+        gameItem7.setScale(0.5f);
+        gameItem7.setPosition(0.5f, 0.5f, 2f);
+        GameItem gameItem8 = new GameItem(mesh);
+        gameItem8.setScale(0.5f);
+        gameItem8.setPosition(1, 1, 2f);
+        GameItem gameItem9 = new GameItem(mesh);
+        gameItem9.setScale(0.5f);
+        gameItem9.setPosition(1.5f, .5f, 2f);
+        GameItem gameItem10 = new GameItem(mesh);
+        gameItem10.setScale(0.5f);
+        gameItem10.setPosition(2f, 0f, 2f);
+        gameItems = new GameItem[]{gameItemC, gameItemB, gameItemA, gameItem0, gameItem1, gameItem2, gameItem3, gameItem4, gameItem5, gameItem6, gameItem7, gameItem8, gameItem9, gameItem10, gameItem11, gameItem12, gameItem13, gameItem14, gameItem15, gameItem16, gameItem17, gameItem18, gameItem19, gameItem20, gameItem21, gameItem22, gameItem23, gameItem24, gameItem25};
     }
 
     @Override
     public void input(Window window, MouseInput mouseInput) {
         cameraInc.set(0, 0, 0);
         if (window.isKeyPressed(GLFW_KEY_W)) {
-            cameraInc.z = -1;
+            cameraInc.z = -.5f;
         } else if (window.isKeyPressed(GLFW_KEY_S)) {
-            cameraInc.z = 1;
+            cameraInc.z = .5f;
         }
         if (window.isKeyPressed(GLFW_KEY_A)) {
-            cameraInc.x = -1;
+            cameraInc.x = -.5f;
         } else if (window.isKeyPressed(GLFW_KEY_D)) {
-            cameraInc.x = 1;
+            cameraInc.x = .5f;
         }
         if (window.isKeyPressed(GLFW_KEY_Z)) {
-            cameraInc.y = -1;
+            cameraInc.y = -.5f;
         } else if (window.isKeyPressed(GLFW_KEY_X)) {
-            cameraInc.y = 1;
+            cameraInc.y = .5f;
         }
     }
 
@@ -163,7 +248,7 @@ public class DummyGame implements IGameLogic {
         // Update camera based on mouse            
         if (mouseInput.isRightButtonPressed()) {
             Vector2f rotVec = mouseInput.getDisplVec();
-            camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY, rotVec.y * MOUSE_SENSITIVITY, 0);
+            camera.moveRotation((rotVec.x * MOUSE_SENSITIVITY)/2, (rotVec.y * MOUSE_SENSITIVITY)/2, 0);
         }
     }
 
