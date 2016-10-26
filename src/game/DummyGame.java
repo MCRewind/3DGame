@@ -124,6 +124,73 @@ public class DummyGame implements IGameLogic {
         Texture texture2 = new Texture("/res/textures/circlebrick.png");
         Mesh mesh = new Mesh(positions, textCoords, indices, texture2);
         
+        Texture texture3 = new Texture("/res/textures/floor.png");
+        Mesh mesh3 = new Mesh(positions, textCoords, indices, texture3);
+        
+        Texture texture4 = new Texture("/res/textures/stonefloor.png");
+        Mesh mesh4 = new Mesh(positions, textCoords, indices, texture4);
+        
+        GameItem pole0 = new GameItem(mesh4);
+        pole0.setScale(0.5f);
+        pole0.setPosition(5f, -.5f, 0);
+        GameItem pole1 = new GameItem(mesh4);
+        pole1.setScale(0.5f);
+        pole1.setPosition(5f, 0f, 0);
+        GameItem pole2 = new GameItem(mesh4);
+        pole2.setScale(0.5f);
+        pole2.setPosition(5f, .5f, 0);
+        GameItem pole3 = new GameItem(mesh4);
+        pole3.setScale(0.5f);
+        pole3.setPosition(5f, 1f, 0);
+        GameItem pole4 = new GameItem(mesh4);
+        pole4.setScale(0.5f);
+        pole4.setPosition(5f, 1.5f, 0);
+        GameItem flag0 = new GameItem(mesh4);
+        flag0.setScale(0.5f);
+        flag0.setPosition(5.5f, 1.5f, 0);
+        GameItem flag1 = new GameItem(mesh4);
+        flag1.setScale(0.5f);
+        flag1.setPosition(6f, 1.5f, 0);
+        
+        GameItem floor1 = new GameItem(mesh3);
+        floor1.setScale(2.5f);
+        floor1.setPosition(-.5f, -2f, 1);
+        GameItem floor2 = new GameItem(mesh3);
+        floor2.setScale(2.5f);
+        floor2.setPosition(2f, -2f, 1);
+        GameItem floor3 = new GameItem(mesh3);
+        floor3.setScale(2.5f);
+        floor3.setPosition(4.5f, -2f, 1);
+        GameItem floor4 = new GameItem(mesh3);
+        floor4.setScale(2.5f);
+        floor4.setPosition(7f, -2f, 1);
+        
+        GameItem floor5 = new GameItem(mesh3);
+        floor5.setScale(2.5f);
+        floor5.setPosition(-.5f, -2f, 3.5f);
+        GameItem floor6 = new GameItem(mesh3);
+        floor6.setScale(2.5f);
+        floor6.setPosition(2f, -2f, 3.5f);
+        GameItem floor7 = new GameItem(mesh3);
+        floor7.setScale(2.5f);
+        floor7.setPosition(4.5f, -2f, 3.5f);
+        GameItem floor8 = new GameItem(mesh3);
+        floor8.setScale(2.5f);
+        floor8.setPosition(7f, -2f, 3.5f);
+        
+        GameItem floor9 = new GameItem(mesh3);
+        floor9.setScale(2.5f);
+        floor9.setPosition(-.5f, -2f, -1.5f);
+        GameItem floor10 = new GameItem(mesh3);
+        floor10.setScale(2.5f);
+        floor10.setPosition(2f, -2f, -1.5f);
+        GameItem floor11 = new GameItem(mesh3);
+        floor11.setScale(2.5f);
+        floor11.setPosition(4.5f, -2f, -1.5f);
+        GameItem floor12 = new GameItem(mesh3);
+        floor12.setScale(2.5f);
+        floor12.setPosition(7f, -2f, -1.5f);
+        
         GameItem gameItem0 = new GameItem(mesh);
         gameItem0.setScale(0.5f);
         gameItem0.setPosition(-.5f, -.5f, 0);
@@ -217,7 +284,7 @@ public class DummyGame implements IGameLogic {
         GameItem gameItem10 = new GameItem(mesh);
         gameItem10.setScale(0.5f);
         gameItem10.setPosition(2f, 0f, 2f);
-        gameItems = new GameItem[]{gameItemC, gameItemB, gameItemA, gameItem0, gameItem1, gameItem2, gameItem3, gameItem4, gameItem5, gameItem6, gameItem7, gameItem8, gameItem9, gameItem10, gameItem11, gameItem12, gameItem13, gameItem14, gameItem15, gameItem16, gameItem17, gameItem18, gameItem19, gameItem20, gameItem21, gameItem22, gameItem23, gameItem24, gameItem25};
+        gameItems = new GameItem[]{flag0, floor1, floor2, floor3, floor4, floor5, floor6, floor7, floor8, floor9, floor10, floor11, floor12, pole0, pole1, pole2, pole3, pole4, gameItemC, gameItemB, gameItemA, gameItem0, gameItem1, gameItem2, gameItem3, gameItem4, gameItem5, gameItem6, gameItem7, gameItem8, gameItem9, gameItem10, gameItem11, gameItem12, gameItem13, gameItem14, gameItem15, gameItem16, gameItem17, gameItem18, gameItem19, gameItem20, gameItem21, gameItem22, gameItem23, gameItem24, gameItem25};
     }
 
     @Override
