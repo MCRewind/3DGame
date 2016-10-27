@@ -68,14 +68,14 @@ public class GameEngine implements Runnable {
         while (running && !window.windowShouldClose()) {
             elapsedTime = timer.getElapsedTime();
             accumulator += elapsedTime;
-
+            
             input();
 
             while (accumulator >= interval) {
                 update(interval);
                 accumulator -= interval;
             }
-
+            
             render();
             
             if ( !window.isvSync() ) {
@@ -96,8 +96,7 @@ public class GameEngine implements Runnable {
         while (timer.getTime() < endTime) {
             try {
                 Thread.sleep(1);
-            } catch (InterruptedException ie) {
-            }
+            } catch (InterruptedException ie) {}
         }
     }
 

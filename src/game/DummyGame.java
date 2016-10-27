@@ -118,6 +118,7 @@ public class DummyGame implements IGameLogic {
             16, 18, 19, 17, 16, 19,
             // Back face
             4, 6, 7, 5, 4, 7,};
+       
         Texture texture = new Texture("/res/textures/grassblock.png");
         Mesh mesh2 = new Mesh(positions, textCoords, indices, texture);
         
@@ -130,25 +131,28 @@ public class DummyGame implements IGameLogic {
         Texture texture4 = new Texture("/res/textures/stonefloor.png");
         Mesh mesh4 = new Mesh(positions, textCoords, indices, texture4);
         
+        Texture texture5 = new Texture("/res/textures/flag.png");
+        Mesh mesh5 = new Mesh(positions, textCoords, indices, texture5);
+        
         GameItem pole0 = new GameItem(mesh4);
-        pole0.setScale(0.5f);
+        pole0.setScale(0.15f);
         pole0.setPosition(5f, -.5f, 0);
         GameItem pole1 = new GameItem(mesh4);
-        pole1.setScale(0.5f);
+        pole1.setScale(0.15f);
         pole1.setPosition(5f, 0f, 0);
         GameItem pole2 = new GameItem(mesh4);
-        pole2.setScale(0.5f);
+        pole2.setScale(0.15f);
         pole2.setPosition(5f, .5f, 0);
         GameItem pole3 = new GameItem(mesh4);
-        pole3.setScale(0.5f);
+        pole3.setScale(0.15f);
         pole3.setPosition(5f, 1f, 0);
         GameItem pole4 = new GameItem(mesh4);
-        pole4.setScale(0.5f);
+        pole4.setScale(0.15f);
         pole4.setPosition(5f, 1.5f, 0);
-        GameItem flag0 = new GameItem(mesh4);
+        GameItem flag0 = new GameItem(mesh5);
         flag0.setScale(0.5f);
         flag0.setPosition(5.5f, 1.5f, 0);
-        GameItem flag1 = new GameItem(mesh4);
+        GameItem flag1 = new GameItem(mesh5);
         flag1.setScale(0.5f);
         flag1.setPosition(6f, 1.5f, 0);
         
@@ -284,7 +288,7 @@ public class DummyGame implements IGameLogic {
         GameItem gameItem10 = new GameItem(mesh);
         gameItem10.setScale(0.5f);
         gameItem10.setPosition(2f, 0f, 2f);
-        gameItems = new GameItem[]{flag0, floor1, floor2, floor3, floor4, floor5, floor6, floor7, floor8, floor9, floor10, floor11, floor12, pole0, pole1, pole2, pole3, pole4, gameItemC, gameItemB, gameItemA, gameItem0, gameItem1, gameItem2, gameItem3, gameItem4, gameItem5, gameItem6, gameItem7, gameItem8, gameItem9, gameItem10, gameItem11, gameItem12, gameItem13, gameItem14, gameItem15, gameItem16, gameItem17, gameItem18, gameItem19, gameItem20, gameItem21, gameItem22, gameItem23, gameItem24, gameItem25};
+        gameItems = new GameItem[]{flag0, flag1, floor1, floor2, floor3, floor4, floor5, floor6, floor7, floor8, floor9, floor10, floor11, floor12, pole0, pole1, pole2, pole3, pole4, gameItemC, gameItemB, gameItemA, gameItem0, gameItem1, gameItem2, gameItem3, gameItem4, gameItem5, gameItem6, gameItem7, gameItem8, gameItem9, gameItem10, gameItem11, gameItem12, gameItem13, gameItem14, gameItem15, gameItem16, gameItem17, gameItem18, gameItem19, gameItem20, gameItem21, gameItem22, gameItem23, gameItem24, gameItem25};
     }
 
     @Override
