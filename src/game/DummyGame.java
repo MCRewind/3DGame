@@ -136,19 +136,52 @@ public class DummyGame implements IGameLogic {
         
         GameItem pole0 = new GameItem(mesh4);
         pole0.setScale(0.15f);
-        pole0.setPosition(5f, -.5f, 0);
+        pole0.setPosition(5f, -.65f, 0);
         GameItem pole1 = new GameItem(mesh4);
         pole1.setScale(0.15f);
-        pole1.setPosition(5f, 0f, 0);
+        pole1.setPosition(5f, -.50f, 0);
         GameItem pole2 = new GameItem(mesh4);
         pole2.setScale(0.15f);
-        pole2.setPosition(5f, .5f, 0);
+        pole2.setPosition(5f, -.35f, 0);
         GameItem pole3 = new GameItem(mesh4);
         pole3.setScale(0.15f);
-        pole3.setPosition(5f, 1f, 0);
+        pole3.setPosition(5f, -.20f, 0);
         GameItem pole4 = new GameItem(mesh4);
         pole4.setScale(0.15f);
-        pole4.setPosition(5f, 1.5f, 0);
+        pole4.setPosition(5f, -.05f, 0);
+        GameItem pole5 = new GameItem(mesh4);
+        pole5.setScale(0.15f);
+        pole5.setPosition(5f, .1f, 0);
+        GameItem pole6 = new GameItem(mesh4);
+        pole6.setScale(0.15f);
+        pole6.setPosition(5f, .25f, 0);
+        GameItem pole7 = new GameItem(mesh4);
+        pole7.setScale(0.15f);
+        pole7.setPosition(5f, .4f, 0);
+        GameItem pole8 = new GameItem(mesh4);
+        pole8.setScale(0.15f);
+        pole8.setPosition(5f, .55f, 0);
+        GameItem pole9 = new GameItem(mesh4);
+        pole9.setScale(0.15f);
+        pole9.setPosition(5f, .7f, 0);
+        GameItem pole10 = new GameItem(mesh4);
+        pole10.setScale(0.15f);
+        pole10.setPosition(5f, .85f, 0);
+        GameItem pole11 = new GameItem(mesh4);
+        pole11.setScale(0.15f);
+        pole11.setPosition(5f, 1, 0);
+        GameItem pole12 = new GameItem(mesh4);
+        pole12.setScale(0.15f);
+        pole12.setPosition(5f, 1.15f, 0);
+        GameItem pole13 = new GameItem(mesh4);
+        pole13.setScale(0.15f);
+        pole13.setPosition(5f, 1.3f, 0);
+        GameItem pole14 = new GameItem(mesh4);
+        pole14.setScale(0.15f);
+        pole14.setPosition(5f, 1.45f, 0);
+        GameItem pole15 = new GameItem(mesh4);
+        pole15.setScale(0.2f);
+        pole15.setPosition(5.15f, 1.45f, 0);
         GameItem flag0 = new GameItem(mesh5);
         flag0.setScale(0.5f);
         flag0.setPosition(5.5f, 1.5f, 0);
@@ -288,7 +321,7 @@ public class DummyGame implements IGameLogic {
         GameItem gameItem10 = new GameItem(mesh);
         gameItem10.setScale(0.5f);
         gameItem10.setPosition(2f, 0f, 2f);
-        gameItems = new GameItem[]{flag0, flag1, floor1, floor2, floor3, floor4, floor5, floor6, floor7, floor8, floor9, floor10, floor11, floor12, pole0, pole1, pole2, pole3, pole4, gameItemC, gameItemB, gameItemA, gameItem0, gameItem1, gameItem2, gameItem3, gameItem4, gameItem5, gameItem6, gameItem7, gameItem8, gameItem9, gameItem10, gameItem11, gameItem12, gameItem13, gameItem14, gameItem15, gameItem16, gameItem17, gameItem18, gameItem19, gameItem20, gameItem21, gameItem22, gameItem23, gameItem24, gameItem25};
+        gameItems = new GameItem[]{flag0, flag1, floor1, floor2, floor3, floor4, floor5, floor6, floor7, floor8, floor9, floor10, floor11, floor12, pole0, pole1, pole2, pole3, pole4, pole5, pole6, pole7, pole8, pole9, pole10, pole11, pole12, pole13, pole14, pole15, gameItemC, gameItemB, gameItemA, gameItem0, gameItem1, gameItem2, gameItem3, gameItem4, gameItem5, gameItem6, gameItem7, gameItem8, gameItem9, gameItem10, gameItem11, gameItem12, gameItem13, gameItem14, gameItem15, gameItem16, gameItem17, gameItem18, gameItem19, gameItem20, gameItem21, gameItem22, gameItem23, gameItem24, gameItem25};
     }
 
     @Override
