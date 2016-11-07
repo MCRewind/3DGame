@@ -128,7 +128,7 @@ public class Mesh {
 
 	//renders a mesh
     public void render(){
-    	// Activate firsT texture bank
+    	// Activate first texture bank
         glActiveTexture(GL_TEXTURE0);
         // Bind the texture
         
