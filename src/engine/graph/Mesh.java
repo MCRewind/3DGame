@@ -43,13 +43,10 @@ public class Mesh {
     //number of vertices in the mesh
     private final int vertexCount;
     
-    private Texture texture;
-
-    private Vector3f color;
+    private Material material;
     
     //creates the VBOs and the VAO
     public Mesh(float[] positions, float[] textCoords, float[] normals, int[] indices) {
-        color = DEFAULT_COLOUR;
         vertexCount = indices.length;
         vboIdList = new ArrayList();
 
@@ -96,43 +93,31 @@ public class Mesh {
         glBindVertexArray(0);
     }
 
-    //returns the vao's id
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
     public int getVaoId() {
         return vaoId;
     }
 
-    //returns number of vertices in the mesh
     public int getVertexCount() {
         return vertexCount;
     }
-    
-    public boolean isTextured(){
-    	return this.texture != null;
-    }
-    
-    public Texture getTexture() {
-		return texture;
-	}
-
-	public void setTexture(Texture texture) {
-		this.texture = texture;
-	}
-
-	public Vector3f getColor() {
-		return color;
-	}
-
-	public void setColor(Vector3f color) {
-		this.color = color;
-	}
 
 	//renders a mesh
     public void render(){
-    	// Activate first texture bank
-        glActiveTexture(GL_TEXTURE0);
-        // Bind the texture
-        
-        glBindTexture(GL_TEXTURE_2D, texture.getId());
+    	Texture texture = material.getTexture();
+        if (texture != null) {
+            // Activate firs texture bank
+            glActiveTexture(GL_TEXTURE0);
+            // Bind the texture
+            glBindTexture(GL_TEXTURE_2D, texture.getId());
+        }
         // Draw the mesh
         glBindVertexArray(getVaoId());
         glEnableVertexAttribArray(0);
@@ -151,12 +136,18 @@ public class Mesh {
     
     //delete VBOs and VAO
     public void cleanUp() {
-    	glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(0);
 
         // Delete the VBOs
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         for (int vboId : vboIdList) {
             glDeleteBuffers(vboId);
+        }
+
+        // Delete the texture
+        Texture texture = material.getTexture();
+        if (texture != null) {
+            texture.cleanup();
         }
 
         // Delete the VAO

@@ -8,13 +8,15 @@ import engine.IGameLogic;
 import engine.MouseInput;
 import engine.Window;
 import engine.graph.Camera;
+import engine.graph.Material;
 import engine.graph.Mesh;
 import engine.graph.OBJLoader;
+import engine.graph.PointLight;
 import engine.graph.Texture;
 
 public class DummyGame implements IGameLogic {
 
-    private static final float MOUSE_SENSITIVITY = 0.4f;
+	private static final float MOUSE_SENSITIVITY = 0.2f;
 
     private final Vector3f cameraInc;
 
@@ -24,30 +26,38 @@ public class DummyGame implements IGameLogic {
 
     private GameItem[] gameItems;
 
+    private Vector3f ambientLight;
+
+    private PointLight pointLight;
+
     private static final float CAMERA_POS_STEP = 0.05f;
 
     public DummyGame() {
         renderer = new Renderer();
         camera = new Camera();
-        cameraInc = new Vector3f(0, 0, 0);
+        cameraInc = new Vector3f(0.0f, 0.0f, 0.0f);
     }
 
     @Override
     public void init(Window window) throws Exception {
         renderer.init(window);
        
+        float reflectance = 1f;
         
         Mesh mesh2 = OBJLoader.loadMesh("/res/models/cube.obj");
         Texture texture2 = new Texture("/res/textures/grassblock.png");
-        mesh2.setTexture(texture2);
+        Material material2 = new Material(texture2, reflectance);
+        mesh2.setMaterial(material2);
         
         Mesh mesh = OBJLoader.loadMesh("/res/models/cube.obj");
         Texture texture = new Texture("/res/textures/circlebrick.png");
-        mesh.setTexture(texture);
+        Material material = new Material(texture, reflectance);
+        mesh.setMaterial(material);
         
         Mesh mesh3 = OBJLoader.loadMesh("/res/models/cube.obj");
         Texture texture3 = new Texture("/res/textures/floor.png");
-        mesh3.setTexture(texture3);
+        Material material3 = new Material(texture3, reflectance);
+        mesh3.setMaterial(material3);
         
         GameItem floor1 = new GameItem(mesh3);
         floor1.setScale(1.25f);
@@ -182,10 +192,19 @@ public class DummyGame implements IGameLogic {
         gameItem10.setScale(0.25f);
         gameItem10.setPosition(2f, 0f, 2f);
         gameItems = new GameItem[]{floor1, floor2, floor3, floor4, floor5, floor6, floor7, floor8, floor9, floor10, floor11, floor12, gameItemC, gameItemB, gameItemA, gameItem0, gameItem1, gameItem2, gameItem3, gameItem4, gameItem5, gameItem6, gameItem7, gameItem8, gameItem9, gameItem10, gameItem11, gameItem12, gameItem13, gameItem14, gameItem15, gameItem16, gameItem17, gameItem18, gameItem19, gameItem20, gameItem21, gameItem22, gameItem23, gameItem24, gameItem25};
+   
+        ambientLight = new Vector3f(0.3f, 0.3f, 0.3f);
+        Vector3f lightColor = new Vector3f(1, 1, 1);
+        Vector3f lightPosition = new Vector3f(2, 1, 2);
+        float lightIntensity = 1.0f;
+        pointLight = new PointLight(lightColor, lightPosition, lightIntensity);
+        PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f, 1.0f);
+        pointLight.setAttenuation(att);
     }
-
+    
     @Override
     public void input(Window window, MouseInput mouseInput) {
+    	//camera movement
         cameraInc.set(0, 0, 0);
         if (window.isKeyPressed(GLFW_KEY_W)) {
             cameraInc.z = -.5f;
@@ -201,6 +220,22 @@ public class DummyGame implements IGameLogic {
             cameraInc.y = -.5f;
         } else if (window.isKeyPressed(GLFW_KEY_X)) {
             cameraInc.y = .5f;
+        }
+        // light momement
+        if (window.isKeyPressed(GLFW_KEY_I)) {
+            this.pointLight.getPosition().z = pointLight.getPosition().z - 0.1f;
+        } else if (window.isKeyPressed(GLFW_KEY_K)) {
+            this.pointLight.getPosition().z = pointLight.getPosition().z + 0.1f;
+        }
+        if (window.isKeyPressed(GLFW_KEY_J)) {
+            this.pointLight.getPosition().x = pointLight.getPosition().x - 0.1f;
+        } else if (window.isKeyPressed(GLFW_KEY_L)) {
+            this.pointLight.getPosition().x = pointLight.getPosition().x + 0.1f;
+        }
+        if (window.isKeyPressed(GLFW_KEY_N)) {
+            this.pointLight.getPosition().y = pointLight.getPosition().y - 0.1f;
+        } else if (window.isKeyPressed(GLFW_KEY_M)) {
+            this.pointLight.getPosition().y = pointLight.getPosition().y + 0.1f;
         }
     }
 
@@ -218,7 +253,7 @@ public class DummyGame implements IGameLogic {
 
     @Override
     public void render(Window window) {
-        renderer.render(window, gameItems, camera);
+    	renderer.render(window, camera, gameItems, ambientLight, pointLight);
     }
 
     @Override

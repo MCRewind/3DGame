@@ -51,6 +51,21 @@ public class ShaderProgram {
     	uniforms.put(uniformName, uniformLocation);
     }
     
+    public void createPointLightUniform(String uniformName) throws Exception {
+        createUniform(uniformName + ".color");
+        createUniform(uniformName + ".position");
+        createUniform(uniformName + ".intensity");
+        createUniform(uniformName + ".att.constant");
+        createUniform(uniformName + ".att.linear");
+        createUniform(uniformName + ".att.exponent");
+    }
+
+    public void createMaterialUniform(String uniformName) throws Exception {
+        createUniform(uniformName + ".color");
+        createUniform(uniformName + ".useColor");
+        createUniform(uniformName + ".reflectance");
+    }
+    
     /*
     *uniform variables are used to efficiently pass data to and from the CPU and GPU
     */
@@ -68,8 +83,28 @@ public class ShaderProgram {
         glUniform1i(uniforms.get(uniformName), value);
     }
 
+    public void setUniform(String uniformName, float value) {
+        glUniform1f(uniforms.get(uniformName), value);
+    }
+    
     public void setUniform(String uniformName, Vector3f value) {
         glUniform3f(uniforms.get(uniformName), value.x, value.y, value.z );
+    }
+    
+    public void setUniform(String uniformName, PointLight pointLight) {
+        setUniform(uniformName + ".color", pointLight.getColor());
+        setUniform(uniformName + ".position", pointLight.getPosition());
+        setUniform(uniformName + ".intensity", pointLight.getIntensity());
+        PointLight.Attenuation att = pointLight.getAttenuation();
+        setUniform(uniformName + ".att.constant", att.getConstant());
+        setUniform(uniformName + ".att.linear", att.getLinear());
+        setUniform(uniformName + ".att.exponent", att.getExponent());
+    }
+
+    public void setUniform(String uniformName, Material material) {
+        setUniform(uniformName + ".color", material.getColor());
+        setUniform(uniformName + ".useColor", material.isTextured() ? 0 : 1);
+        setUniform(uniformName + ".reflectance", material.getReflectance());
     }
     
     //compiles a shader, attaches it to a program, then returns the shaderId
