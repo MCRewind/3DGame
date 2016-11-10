@@ -18,6 +18,10 @@ public class GameEngine implements Runnable {
     
     private final MouseInput mouseInput;
 
+    private double lastFps;
+    
+    private int fps;
+    
     //initializes the gameloop thread, the window, the gamelogic, and the timer.
     public GameEngine(String windowTitle, int width, int height, boolean vSync, IGameLogic gameLogic) throws Exception {
         gameLoopThread = new Thread(this, "GAME_LOOP_THREAD");
@@ -78,7 +82,7 @@ public class GameEngine implements Runnable {
             
             render();
             
-            if ( !window.isvSync() ) {
+            if (!window.isvSync()) {
                 sync();
             }
         }
@@ -113,6 +117,13 @@ public class GameEngine implements Runnable {
 
     //passes the game's render method the main window then updates the window
     protected void render() {
+    	if (timer.getLastLoopTime() - lastFps > 1 ) {
+            lastFps = timer.getLastLoopTime();
+            System.out.println(fps + " FPS");
+            fps = 0;
+        }
+        fps++;
+    	
         gameLogic.render(window);
         window.update();
     }
