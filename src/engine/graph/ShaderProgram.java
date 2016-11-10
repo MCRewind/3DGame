@@ -60,6 +60,12 @@ public class ShaderProgram {
         createUniform(uniformName + ".att.exponent");
     }
 
+    public void createDirectionalLightUniform(String uniformName) throws Exception {
+        createUniform(uniformName + ".color");
+        createUniform(uniformName + ".direction");
+        createUniform(uniformName + ".intensity");
+    }
+    
     public void createMaterialUniform(String uniformName) throws Exception {
         createUniform(uniformName + ".color");
         createUniform(uniformName + ".useColor");
@@ -105,6 +111,12 @@ public class ShaderProgram {
         setUniform(uniformName + ".color", material.getColor());
         setUniform(uniformName + ".useColor", material.isTextured() ? 0 : 1);
         setUniform(uniformName + ".reflectance", material.getReflectance());
+    }
+    
+    public void setUniform(String uniformName, DirectionalLight dirLight) {
+        setUniform(uniformName + ".color", dirLight.getColor());
+        setUniform(uniformName + ".direction", dirLight.getDirection());
+        setUniform(uniformName + ".intensity", dirLight.getIntensity());
     }
     
     //compiles a shader, attaches it to a program, then returns the shaderId
