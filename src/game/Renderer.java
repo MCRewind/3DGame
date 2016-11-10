@@ -23,6 +23,7 @@ import engine.graph.DirectionalLight;
 import engine.graph.Mesh;
 import engine.graph.PointLight;
 import engine.graph.ShaderProgram;
+import engine.graph.SpotLight;
 import engine.graph.Transformation;
 
 public class Renderer {
@@ -70,6 +71,7 @@ public class Renderer {
         shaderProgram.createUniform("specularPower");
         shaderProgram.createUniform("ambientLight");
         shaderProgram.createPointLightUniform("pointLight");
+        shaderProgram.createSpotLightUniform("spotLight");
         shaderProgram.createDirectionalLightUniform("directionalLight");
         
         //set clear color
@@ -82,7 +84,7 @@ public class Renderer {
     }
 
     //deals with window resizing, binds the shaderProgram, and draws the mesh then unbinds the shaderProgram
-    public void render(Window window, Camera camera, GameItem[] gameItems, Vector3f ambientLight, PointLight pointLight, DirectionalLight directionalLight) {
+    public void render(Window window, Camera camera, GameItem[] gameItems, Vector3f ambientLight, PointLight pointLight, SpotLight spotLight, DirectionalLight directionalLight) {
 
         clear();
 
@@ -112,9 +114,25 @@ public class Renderer {
         lightPos.y = aux.y;
         lightPos.z = aux.z;
         shaderProgram.setUniform("pointLight", currPointLight);
+        
+        // Get a copy of the spot light object and transform its position and cone direction to view coordinates
+        SpotLight currSpotLight = new SpotLight(spotLight);
+        Vector4f dir = new Vector4f(currSpotLight.getConeDirection(), 0);
+        dir.mul(viewMatrix);
+        currSpotLight.setConeDirection(new Vector3f(dir.x, dir.y, dir.z));
+
+        Vector3f sPotLightPos = currSpotLight.getPointLight().getPosition();
+        Vector4f auxSpot = new Vector4f(sPotLightPos, 1);
+        aux.mul(viewMatrix);
+        sPotLightPos.x = auxSpot.x;
+        sPotLightPos.y = auxSpot.y;
+        sPotLightPos.z = auxSpot.z;
+
+        shaderProgram.setUniform("spotLight", currSpotLight);
+        
         // Get a copy of the directional light object and transform its position to view coordinates
         DirectionalLight currDirLight = new DirectionalLight(directionalLight);
-        Vector4f dir = new Vector4f(currDirLight.getDirection(), 0);
+        dir = new Vector4f(currDirLight.getDirection(), 0);
         dir.mul(viewMatrix);
         currDirLight.setDirection(new Vector3f(dir.x, dir.y, dir.z));
         shaderProgram.setUniform("directionalLight", currDirLight);
