@@ -30,11 +30,11 @@ public class DummyGame implements IGameLogic {
 
     private Vector3f ambientLight;
 
-    private PointLight pointLight;
+    private PointLight[] pointLightList;
+
+    private SpotLight[] spotLightList;
 
     private DirectionalLight directionalLight;
-
-    private SpotLight spotLight;
     
     private float lightAngle;
     
@@ -43,6 +43,14 @@ public class DummyGame implements IGameLogic {
     private float spotAngle = 0;
 
     private float spotInc = 1;
+    
+    private int spotArrPos = 0;
+    
+    private int pointArrPos = 0;
+    
+    private boolean whatLight = true;
+    //true = point
+    //false = spot
     
     public DummyGame() {
         renderer = new Renderer();
@@ -208,12 +216,13 @@ public class DummyGame implements IGameLogic {
    
         ambientLight = new Vector3f(0.3f, 0.3f, 0.3f);
 
-        // Point Light
+     // Point Light
         Vector3f lightPosition = new Vector3f(0, 0, 1);
         float lightIntensity = 1.0f;
-        pointLight = new PointLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity);
+        PointLight pointLight = new PointLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity);
         PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f, 1.0f);
         pointLight.setAttenuation(att);
+        pointLightList = new PointLight[]{pointLight};
 
         // Spot Light
         lightPosition = new Vector3f(0, 0.0f, 10f);
@@ -222,7 +231,8 @@ public class DummyGame implements IGameLogic {
         pointLight.setAttenuation(att);
         Vector3f coneDir = new Vector3f(0, 0, -1);
         float cutoff = (float) Math.cos(Math.toRadians(140));
-        spotLight = new SpotLight(pointLight, coneDir, cutoff);
+        SpotLight spotLight = new SpotLight(pointLight, coneDir, cutoff);
+        spotLightList = new SpotLight[]{spotLight, new SpotLight(spotLight)};
 
         lightPosition = new Vector3f(-1, 0, 0);
         directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity);
@@ -230,38 +240,112 @@ public class DummyGame implements IGameLogic {
     
     @Override
     public void input(Window window, MouseInput mouseInput) {
-    	//camera movement
+    	
+    	/*CAMERA CONTROLS*/
+    	/* W - FORWARDS
+    	 * A - LEFT
+    	 * S - BACKWARDS
+    	 * D - RIGHT
+    	 * Z - DOWN
+    	 * X - UP
+    	 * LEFT MOUSE BUTTON - ROTATE
+    	 */
+    	
         cameraInc.set(0, 0, 0);
+        //camera control
         if (window.isKeyPressed(GLFW_KEY_W)) {
-            cameraInc.z = -.5f;
+            cameraInc.z = -1;
         } else if (window.isKeyPressed(GLFW_KEY_S)) {
-            cameraInc.z = .5f;
+            cameraInc.z = 1;
         }
         if (window.isKeyPressed(GLFW_KEY_A)) {
-            cameraInc.x = -.5f;
+            cameraInc.x = -1;
         } else if (window.isKeyPressed(GLFW_KEY_D)) {
-            cameraInc.x = .5f;
+            cameraInc.x = 1;
         }
         if (window.isKeyPressed(GLFW_KEY_Z)) {
-            cameraInc.y = -.5f;
+            cameraInc.y = -1;
         } else if (window.isKeyPressed(GLFW_KEY_X)) {
-            cameraInc.y = .5f;
+            cameraInc.y = 1;
         }
-        // light momement
+  
+        /*LIGHT CONTROLS*/
+        /* I - FORWARD
+         * J - LEFT
+         * K - BACKWARDS
+         * L - RIGHT
+         * N - DOWN
+         * M - UP
+         * T - TOGGLE[SPOT]/[POINT]
+         * G - DECREMENT CURRENT LIGHT ARRAY POS
+         * H - INCREMENT CURRENT LIGHT ARRAY POS
+         */
+        
+        //light array control
+        if (window.isKeyPressed(GLFW_KEY_G)) {
+        	if (whatLight){
+        		if(pointArrPos > 0){
+            		pointArrPos--;
+            	}
+        	} else {
+        		if(spotArrPos > 0){
+        			spotArrPos--;
+            	}
+        	}
+        } else if (window.isKeyPressed(GLFW_KEY_H)) {
+        	if (whatLight){
+        		if(pointArrPos < pointLightList.length-1){
+            		pointArrPos++;
+            	}
+        	} else {
+        		if(spotArrPos < spotLightList.length-1){
+        			spotArrPos++;
+            	}
+        	}
+        }
+        if (window.isKeyPressed(GLFW_KEY_T)) {
+            whatLight = !whatLight;
+        }
+        
+        //light control
         if (window.isKeyPressed(GLFW_KEY_I)) {
-            this.pointLight.getPosition().z = pointLight.getPosition().z - 0.1f;
+        	if (whatLight) {
+        		this.pointLightList[pointArrPos].getPosition().z = pointLightList[pointArrPos].getPosition().z + 0.1f;
+        	} else {
+        		this.spotLightList[spotArrPos].getPointLight().getPosition().z = spotLightList[spotArrPos].getPointLight().getPosition().z + 0.1f;
+        	}
         } else if (window.isKeyPressed(GLFW_KEY_K)) {
-            this.pointLight.getPosition().z = pointLight.getPosition().z + 0.1f;
+        	if (whatLight) {
+        		this.pointLightList[pointArrPos].getPosition().z = pointLightList[pointArrPos].getPosition().z - 0.1f;
+        	} else {
+        		this.spotLightList[spotArrPos].getPointLight().getPosition().z = spotLightList[spotArrPos].getPointLight().getPosition().z - 0.1f;
+        	}
         }
         if (window.isKeyPressed(GLFW_KEY_J)) {
-            this.pointLight.getPosition().x = pointLight.getPosition().x - 0.1f;
+        	if (whatLight) {
+        		this.pointLightList[pointArrPos].getPosition().x = pointLightList[pointArrPos].getPosition().x + 0.1f;
+        	} else {
+        		this.spotLightList[spotArrPos].getPointLight().getPosition().x = spotLightList[spotArrPos].getPointLight().getPosition().x + 0.1f;
+        	}
         } else if (window.isKeyPressed(GLFW_KEY_L)) {
-            this.pointLight.getPosition().x = pointLight.getPosition().x + 0.1f;
+        	if (whatLight) {
+        		this.pointLightList[pointArrPos].getPosition().x = pointLightList[pointArrPos].getPosition().x - 0.1f;
+        	} else {
+        		this.spotLightList[spotArrPos].getPointLight().getPosition().x = spotLightList[spotArrPos].getPointLight().getPosition().x - 0.1f;
+        	}
         }
         if (window.isKeyPressed(GLFW_KEY_N)) {
-            this.pointLight.getPosition().y = pointLight.getPosition().y - 0.1f;
+        	if (whatLight) {
+        		this.pointLightList[pointArrPos].getPosition().y = pointLightList[pointArrPos].getPosition().y + 0.1f;
+        	} else {
+        		this.spotLightList[spotArrPos].getPointLight().getPosition().y = spotLightList[spotArrPos].getPointLight().getPosition().y + 0.1f;
+        	}
         } else if (window.isKeyPressed(GLFW_KEY_M)) {
-            this.pointLight.getPosition().y = pointLight.getPosition().y + 0.1f;
+        	if (whatLight) {
+        		this.pointLightList[pointArrPos].getPosition().y = pointLightList[pointArrPos].getPosition().y - 0.1f;
+        	} else {
+        		this.spotLightList[spotArrPos].getPointLight().getPosition().y = spotLightList[spotArrPos].getPointLight().getPosition().y - 0.1f;
+        	}
         }
     }
 
@@ -301,7 +385,7 @@ public class DummyGame implements IGameLogic {
 
     @Override
     public void render(Window window) {
-    	renderer.render(window, camera, gameItems, ambientLight, pointLight, spotLight, directionalLight);
+    	renderer.render(window, camera, gameItems, ambientLight, pointLightList, spotLightList, directionalLight);
     }
 
     @Override
