@@ -4,7 +4,7 @@ import org.joml.Vector3f;
 
 public class Material {
 
-    private static final Vector3f DEFAULT_COLOR = new Vector3f(1.0f, 1.0f, 1.0f);
+    private static final Vector3f DEFAULT_COLOUR = new Vector3f(1.0f, 1.0f, 1.0f);
 
     private Vector3f color;
     
@@ -13,7 +13,7 @@ public class Material {
     private Texture texture;
     
     public Material() {
-        color = DEFAULT_COLOR;
+        color = DEFAULT_COLOUR;
         reflectance = 0;
     }
     
@@ -21,6 +21,11 @@ public class Material {
         this();
         this.color = color;
         this.reflectance = reflectance;
+    }
+
+    public Material(Texture texture) {
+        this();
+        this.texture = texture;
     }
 
     public Material(Texture texture, float reflectance) {

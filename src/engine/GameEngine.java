@@ -117,14 +117,15 @@ public class GameEngine implements Runnable {
 
     //passes the game's render method the main window then updates the window
     protected void render() {
-    	if (timer.getLastLoopTime() - lastFps > 1 ) {
+        if (timer.getLastLoopTime() - lastFps > 1 ) {
             lastFps = timer.getLastLoopTime();
             System.out.println(fps + " FPS");
+            gameLogic.render(window, fps);
             fps = 0;
+        } else {
+        	 gameLogic.render(window, 9000);
         }
         fps++;
-    	
-        gameLogic.render(window);
         window.update();
     }
 }
