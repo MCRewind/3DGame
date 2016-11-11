@@ -362,6 +362,9 @@ public class DummyGame implements IGameLogic {
         if (mouseInput.isRightButtonPressed()) {
             Vector2f rotVec = mouseInput.getDisplVec();
             camera.moveRotation((rotVec.x * MOUSE_SENSITIVITY)/2, (rotVec.y * MOUSE_SENSITIVITY)/2, 0);
+            
+            // Update HUD compass
+            hud.rotateCompass(camera.getRotation().y);
         }
         
         // Update spot light direction
@@ -402,6 +405,7 @@ public class DummyGame implements IGameLogic {
 
     @Override
     public void render(Window window, int fps) {
+    	hud.updateSize(window);
     	if (fps != 9000){
             hud.setStatusText(Integer.toString(fps));
     	}

@@ -25,6 +25,7 @@ public class Utils {
 	//creates and returns a list of string from a file
     public static List<String> readAllLines(String fileName) throws Exception {
         List<String> list = new ArrayList<>();
+        System.out.println(fileName);
         try (BufferedReader br = new BufferedReader(new InputStreamReader(Utils.class.getClass().getResourceAsStream(fileName)))) {
             String line;
             while ((line = br.readLine()) != null) {
