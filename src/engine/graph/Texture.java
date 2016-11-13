@@ -2,6 +2,8 @@ package engine.graph;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
+
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
@@ -15,9 +17,12 @@ public class Texture {
     private final int height;
 
     public Texture(String fileName) throws Exception {
+        this(Texture.class.getResourceAsStream(fileName));
+    }
 
+    public Texture(InputStream is) throws Exception {
         // Load Texture file
-        PNGDecoder decoder = new PNGDecoder(Texture.class.getResourceAsStream(fileName));
+        PNGDecoder decoder = new PNGDecoder(is);
 
         this.width = decoder.getWidth();
         this.height = decoder.getHeight();

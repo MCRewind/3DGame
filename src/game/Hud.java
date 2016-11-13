@@ -1,21 +1,22 @@
 package game;
 
+import java.awt.Font;
+
 import org.joml.Vector3f;
 import engine.GameItem;
 import engine.IHud;
 import engine.TextItem;
 import engine.Window;
+import engine.graph.FontTexture;
 import engine.graph.Material;
 import engine.graph.Mesh;
 import engine.graph.OBJLoader;
 
 public class Hud implements IHud {
 
-    private static final int FONT_COLS = 16;
-    
-    private static final int FONT_ROWS = 16;
+    private static final Font FONT = new Font("Arial", Font.PLAIN, 20);
 
-    private static final String FONT_TEXTURE = "/res/textures/font_texture.png";
+    private static final String CHARSET = "ISO-8859-1";
 
     private final GameItem[] gameItems;
 
@@ -24,7 +25,8 @@ public class Hud implements IHud {
     private final GameItem compassItem;
 
     public Hud(String statusText) throws Exception {
-        this.statusTextItem = new TextItem(statusText, FONT_TEXTURE, FONT_COLS, FONT_ROWS);
+        FontTexture fontTexture = new FontTexture(FONT, CHARSET);
+        this.statusTextItem = new TextItem(statusText, fontTexture);
         this.statusTextItem.getMesh().getMaterial().setColor(new Vector3f(1, 1, 1));
 
         // Create compass
@@ -55,7 +57,7 @@ public class Hud implements IHud {
     }
    
     public void updateSize(Window window) {
-        this.statusTextItem.setPosition(10f, 0f, 0);
+        this.statusTextItem.setPosition(10f, window.getHeight() - 50f, 0);
         this.compassItem.setPosition(window.getWidth() - 40f, 50f, 0);
     }
 }
